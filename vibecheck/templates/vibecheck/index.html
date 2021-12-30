@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test Page</title>
+    </head>
+    <body>
+        <h1>{{ message }}</h1>
+        {% if students %}
+        <ul>
+            {% for student in students %}
+            <li>{{ student.name }} : {{ student.grade }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </body>
+</html>
