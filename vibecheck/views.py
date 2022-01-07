@@ -1,8 +1,12 @@
-from project_vibecheck.settings import LOGIN_REDIRECT_URL
+import random
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from project_vibecheck.settings import LOGIN_REDIRECT_URL
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
 
-import random
+
+
 
 # Create your views here.
 def index(request):
@@ -13,5 +17,14 @@ def index(request):
 
 @login_required
 def home(request):
-    context = {}
+    context = {"tracks": ""}
+    scope = "user-library-read"
+
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+
+    results = sp.current_user_saved_tracks()
+    for idx, item in enumerate(results['items']):
+        track = item['track']
+        context["tracks"] += f"{idx} {track['artists'][0]['name']} –  {track['name']}<br>"
+    
     return render(request, "vibecheck/home.html", context)

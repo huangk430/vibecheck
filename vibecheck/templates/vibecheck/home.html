@@ -7,6 +7,7 @@
         <h1>Redirected back from spotify</h1>
         <h1>Username {{ request.user.username }}</h1>
         <h1>Email {{ request.user.email }}</h1>
-
+        <p>Tracks:</p>
+        <p>{{ tracks|safe }}</p>
     </body>
 </html>

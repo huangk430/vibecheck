@@ -142,14 +142,14 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = "home"
 
-SOCIALACCOUNT_PROVIDERS = {
-    "spotify": {
-        "APP": {
-            "client_id": "c3fefed751cf49b2825494cd5591c4be", #os.environ.get("SPOTIPY_CLIENT_ID"),
-            "secret": "8f9a1e403b7d4db48ecf97e20854a3f2" #os.environ.get("SPOTIPY_CLIENT_SECRET")
-        },
-    }
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     "spotify": {
+#         "APP": {
+#             "client_id": "c3fefed751cf49b2825494cd5591c4be", #os.environ.get("SPOTIPY_CLIENT_ID"),
+#             "secret": "8f9a1e403b7d4db48ecf97e20854a3f2" #os.environ.get("SPOTIPY_CLIENT_SECRET")
+#         },
+#     }
+# }
 
 SOCIALACCOUNT_STORE_TOKENS = True
 
