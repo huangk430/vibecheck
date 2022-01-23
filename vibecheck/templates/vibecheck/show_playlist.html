@@ -4,13 +4,14 @@
         <title>Test Page</title>
     </head>
     <body>
-        <h1>Redirected back from spotify</h1>
+        <h1>Generated playlist</h1>
         <h1>Username {{ request.user.username }}</h1>
         <h1>Email {{ request.user.email }}</h1>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button>Generate Playlist</button>
-        </form>
+        <ul>
+        {% for track in tracks %}
+            <li>{{ track }}</li>
+        {% endfor %}
+        </ul>
+        
     </body>
 </html>
