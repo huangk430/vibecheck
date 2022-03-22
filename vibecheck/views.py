@@ -1,20 +1,52 @@
 import random
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from project_vibecheck.settings import LOGIN_REDIRECT_URL
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+from vibecheck.models import *
 
 
 
 
 # Create your views here.
 def index(request):
-    context = {"message": "good morning"}
-    studs = ["bob", "jimmy", "david", "kelly", "joe"]
-    context["students"] = [{"name": s, "grade": random.randint(0,100)} for s in studs]
-    return render(request, "vibecheck/index.html", context)
+    if request.method != "POST":
+        context = {}
+        return render(request, "vibecheck/index.html", context)
+    else:
+        print(request.POST)
+        return redirect(reverse("show_playlist", args=[request.POST.get("vibe")]))
+
+
+@login_required
+def show_playlist(request, vibeid):
+    # v = Vibe.objects.get(id=vibeid)
+    v = get_object_or_404(Vibe, id=vibeid)
+    genreSeeds = v.genres.all().values_list("name", flat=True)
+    scope = "user-library-read"
+    context = {"tracks": []}
+    seedTracks = []
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+
+    savedTracks = sp.current_user_saved_tracks()
+    #print(savedTracks)
+    for idx, item in enumerate(savedTracks['items']):
+        track = item['track'] 
+        seedTracks.append(track['id'])
+
+    # TODO recommendation engine is limited to 5 seeds only (3 tracks, 2 genres)
+    # TODO randomly pick 3 tracks from user saved tracks, randomly pick 2 genres from vibe table
+
+
+    results = sp.recommendations(seed_genres=genreSeeds)
+    # print(results)
+
+    for idx, track in enumerate(results['tracks']):
+        context["tracks"].append(f"{idx} {track['artists'][0]['name']} –  {track['name']}<br>")
+   
+    return render(request, "vibecheck/show_playlist.html", context)
 
 @login_required
 def home(request):
@@ -32,28 +64,6 @@ def home(request):
         return render(request, "vibecheck/home.html", context)
     else:
         return redirect(reverse("show_playlist", args=[1]))
-
-
-@login_required
-def show_playlist(request, vibeid):
-    scope = "user-library-read"
-    context = {"tracks": []}
-    seedTracks = []
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
-
-    savedTracks = sp.current_user_saved_tracks()
-    #print(savedTracks)
-    for idx, item in enumerate(savedTracks['items']):
-        track = item['track'] 
-        seedTracks.append(track['id'])
-    
-    results = sp.recommendations(seed_tracks=seedTracks[:5])
-    print(results)
-
-    for idx, track in enumerate(results['tracks']):
-        context["tracks"].append(f"{idx} {track['artists'][0]['name']} –  {track['name']}<br>")
-   
-    return render(request, "vibecheck/show_playlist.html", context)
 
 
 

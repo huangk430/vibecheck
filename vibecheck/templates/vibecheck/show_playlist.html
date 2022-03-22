@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Test Page</title>
-    </head>
-    <body>
-        <h1>Generated playlist</h1>
-        <h1>Username {{ request.user.username }}</h1>
-        <h1>Email {{ request.user.email }}</h1>
-        <ul>
-        {% for track in tracks %}
-            <li>{{ track }}</li>
-        {% endfor %}
-        </ul>
-        
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<ul>
+    {% for track in tracks %}
+        <li>{{ track|safe }}</li>  
+    {% endfor %}
+</ul>
+
+{% endblock %}
