@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-i_do%-6+^^p12rh*+4k7%h^5buvun6@d%((%c0f!r&!8u)@wvk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "vibecheck.pythonanywhere.com"]
 
 
 # Application definition
