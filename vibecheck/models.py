@@ -17,3 +17,4 @@ class UserVibe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     vibe = models.ForeignKey(Vibe, on_delete=models.CASCADE)
     datetime = models.DateTimeField(auto_now=True)
+

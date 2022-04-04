@@ -2,10 +2,25 @@
 
 {% block content %}
 
+<h1>seedGenres</h1>
+{{seedGenres}}
+
+<h1>seedTracks</h1>
+<ul>
+    {% for track in seedTracks %}
+        <li>{{ track|safe }}</li>  
+    {% endfor %}
+</ul>
+
+<h1>Recommendations</h1>
 <ul>
     {% for track in tracks %}
         <li>{{ track|safe }}</li>  
     {% endfor %}
 </ul>
+<form method="POST">
+    {% csrf_token %}
+    <button>Save to Spotify</button>
+</form>
 
 {% endblock %}
