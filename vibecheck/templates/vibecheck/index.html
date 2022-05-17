@@ -1,48 +1,70 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-<div class="w3-panel">
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <script>alert({{message.tags}})</script>
+    <div class="w3-panel w3-border w3-round-xlarge {% if 'success' in message.tags %} w3-pale-green {% else %} w3-pale-blue {% endif %}"><p>{{ message }}</p></div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="w3-panel w3-center">
     <h1><b>VibeCheck</b></h1>
     <p>Looking for new music? Let’s make you a playlist based on your mood! </p>
-  </div>
+</div>
 
   <!-- Slideshow -->
-  <div class="w3-container">
+  <div class="w3-container" style="width:50%; margin:0 auto">
     <div class="w3-display-container mySlides">
-      <img src="https://www.w3schools.com/w3images/coffee.jpg" style="width:100%">
-      <div class="w3-display-topleft w3-container w3-padding-32">
-        <span class="w3-white w3-padding-large w3-animate-bottom">Lorem ipsum</span>
+      <img src="{% static 'vibecheck/positive.jpeg' %}" style="width:100%">
+      <div class="w3-display-middle w3-container" style="width:100%">
+        <div class="w3-left" onclick="plusDivs(-1)"><i class="fa fa-arrow-circle-left w3-hover-text-teal w3-xxlarge w3-text-white"></i></div>
+        <div class="w3-right" onclick="plusDivs(1)"><i class="fa fa-arrow-circle-right w3-hover-text-teal w3-xxlarge w3-text-white"></i></div>
       </div>
     </div>
     <div class="w3-display-container mySlides">
-      <img src="https://www.w3schools.com/w3images/workbench.jpg" style="width:100%">
-      <div class="w3-display-middle w3-container w3-padding-32">
-        <span class="w3-white w3-padding-large w3-animate-bottom">Klorim tipsum</span>
+      <img src="{% static 'vibecheck/chillax.jpg' %}" style="width:100%">
+      <div class="w3-display-middle w3-container" style="width:100%">
+        <div class="w3-left" onclick="plusDivs(-1)"><i class="fa fa-arrow-circle-left w3-hover-text-teal w3-xxlarge"></i></div>
+        <div class="w3-right" onclick="plusDivs(1)"><i class="fa fa-arrow-circle-right w3-hover-text-teal w3-xxlarge"></i></div>
       </div>
     </div>
     <div class="w3-display-container mySlides">
-      <img src="https://www.w3schools.com/w3images/sound.jpg" style="width:100%">
-      <div class="w3-display-topright w3-container w3-padding-32">
-        <span class="w3-white w3-padding-large w3-animate-bottom">Blorum pipsum</span>
+      <img src="{% static 'vibecheck/hype.jpeg' %}" style="width:100%">
+      <div class="w3-display-middle w3-container" style="width:100%">
+        <div class="w3-left" onclick="plusDivs(-1)"><i class="fa fa-arrow-circle-left w3-hover-text-teal w3-xxlarge w3-text-white"></i></div>
+        <div class="w3-right" onclick="plusDivs(1)"><i class="fa fa-arrow-circle-right w3-hover-text-teal w3-xxlarge w3-text-white"></i></div>
+      </div>
+    </div>
+    <div class="w3-display-container mySlides">
+      <img src="{% static 'vibecheck/focus.jpeg' %}" style="width:100%">
+      <div class="w3-display-middle w3-container" style="width:100%">
+        <div class="w3-left" onclick="plusDivs(-1)"><i class="fa fa-arrow-circle-left w3-hover-text-teal w3-xxlarge"></i></div>
+        <div class="w3-right" onclick="plusDivs(1)"><i class="fa fa-arrow-circle-right w3-hover-text-teal w3-xxlarge"></i></div>
       </div>
     </div>
 
     <!-- Slideshow next/previous buttons -->
     <div class="w3-container w3-dark-grey w3-padding w3-xlarge">
-      <div class="w3-left" onclick="plusDivs(-1)"><i class="fa fa-arrow-circle-left w3-hover-text-teal"></i></div>
-      <div class="w3-right" onclick="plusDivs(1)"><i class="fa fa-arrow-circle-right w3-hover-text-teal"></i></div>
     
       <div class="w3-center">
         <span class="w3-tag demodots w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
         <span class="w3-tag demodots w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
         <span class="w3-tag demodots w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+        <span class="w3-tag demodots w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
+
       </div>
     </div>
   </div>
   <form method="POST">
       {% csrf_token %}
       <input type="hidden" id="vibe" name="vibe" value="1" />
-      <button>Connect To Spotify</button>
+      <div class="w3-center w3-margin">
+        <button class="w3-btn w3-green w3-ripple w3-round-xlarge w3-padding-large w3-large">Connect To Spotify</button>
+      </div>
   </form>
 {% endblock %}
 

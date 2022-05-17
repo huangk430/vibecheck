@@ -1,26 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="w3-container w3-center" style="width:100%">
+    <p>Based on your saved tracks,</p>
+    <h1>Here’s what we recommend...</h1>
+    <div class="w3-row">
+        <div class="w3-col l3 m2 w3-hide-small">&nbsp;</div>
+        <ol class="w3-left-align w3-col l6 m8 s12">
+            {% for track in tracks %}
+                <li>{{ track|safe }}</li>  
+            {% endfor %}
+        </ol>
+        <div class="w3-col l3 m2 w3-hide-small">&nbsp;</div>
+    </div>
 
-<h1>seedGenres</h1>
-{{seedGenres}}
+    <form method="POST">
+        {% csrf_token %}
+        <button class="w3-btn w3-green w3-round">Save to Spotify</button>
+    </form>
 
-<h1>seedTracks</h1>
-<ul>
-    {% for track in seedTracks %}
-        <li>{{ track|safe }}</li>  
-    {% endfor %}
-</ul>
+    <button onclick="myFunction('SeedData')" class="w3-margin-top w3-btn w3-green w3-round w3-ripple">View Seed Data</button>
+        
+    <div id="SeedData" class="w3-hide w3-container w3-light-grey">
+        <p>{{seedGenres}}</p>
+        <p> 
+            {% for track in seedTracks %}
+                {{ track|safe }} <br>
+            {% endfor %}
+        </p>
+    </div>
+</div>
 
-<h1>Recommendations</h1>
-<ul>
-    {% for track in tracks %}
-        <li>{{ track|safe }}</li>  
-    {% endfor %}
-</ul>
-<form method="POST">
-    {% csrf_token %}
-    <button>Save to Spotify</button>
-</form>
+{% endblock %}
+
+
+{% block extrajs %}
+
+<script>
+    function myFunction(id) {
+      var x = document.getElementById(id);
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+      } else { 
+        x.className = x.className.replace(" w3-show", "");
+      }
+    }
+</script>
 
 {% endblock %}

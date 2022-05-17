@@ -1,0 +1,17 @@
+{# extends "base.html" %}
+{% load account socialaccount %}
+{% get_providers as socialaccount_providers %}
+
+
+{% block content %}
+Should redirect
+{% for provider in socialaccount_providers %}
+<meta http-equiv="refresh" content="0; url={% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}" />
+<p>If you are not redirected, go to the link below</p>
+<a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
+href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
+
+{% endfor %}
+{% endblock #}
+
+
