@@ -1,3 +1,5 @@
 venv
 __pycache__
 vibecheck/migrations
+**/.cache*
+**/.DS_Store
