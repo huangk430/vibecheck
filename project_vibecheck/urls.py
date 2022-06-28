@@ -22,7 +22,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', views.index, name="index"),
     path('show_playlist/<int:vibeid>/', views.show_playlist, name="show_playlist"),
-    # path('home/', views.home, name="home"),
+    path('home/', views.home, name="home"),
 
     
 ]
