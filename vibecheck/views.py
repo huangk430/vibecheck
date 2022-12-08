@@ -14,13 +14,16 @@ import spotipy.util as util
 from allauth.socialaccount.models import SocialAccount
 from vibecheck.models import *
 
+# TODO compare tokens in allauth tables to the localhost token when saving a playlist using the debugger 
 
+def get_access_token(user):
+    # breakpoint()
+    return 
 
-
-# Create your views here.
 def index(request):
     if request.method != "POST":
         context = {}
+        get_access_token(request.user)
         return render(request, "vibecheck/index.html", context)
     else:
         print(request.POST)
@@ -69,7 +72,8 @@ def show_playlist(request, vibeid):
         CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
         CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
         REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
-        token = util.prompt_for_user_token(user_id, scope=scope, client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=REDIRECT_URI)
+        # token = util.prompt_for_user_token(user_id, scope=scope, client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri=REDIRECT_URI)
+        token = b"BQBV_GH4V_AAq2psczYPmLmNNFkTwwTgfVDIifwDPJQc2jgjWZRMOGdAD85b-0N9iL6PbyDR9f-AD66hwuezP4Ru21TSO5tWIsQ3qdHUN8wr0qKgVMptKPGr-LkLtS_zlAeFwgZbjM-zM8KLNSv5zEoZYrjYSKEpBEndkCAC-dhbnvEbbEg"
         endpoint_url = f"https://api.spotify.com/v1/users/{user_id}/playlists"
         playlist_name = f"{v.name.capitalize()} Playlist {tz.now().month}/{tz.now().day}"
         request_body = json.dumps({
@@ -78,6 +82,7 @@ def show_playlist(request, vibeid):
             "public": True # let's keep it between us - for now
         })
         response = requests.post(url = endpoint_url, data = request_body, headers={"Content-Type":"application/json", "Authorization":f"Bearer {token}"})
+        breakpoint()
         playlist_id = response.json()['id']
 
         
@@ -110,12 +115,6 @@ def home(request):
         return render(request, "vibecheck/home.html", context)
     else:
         return redirect(reverse("show_playlist", args=[1]))
-
-
-
-
-
-
 
 
 
