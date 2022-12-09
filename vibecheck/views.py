@@ -116,6 +116,24 @@ def home(request):
     else:
         return redirect(reverse("show_playlist", args=[1]))
 
+def login(request):
+    scope = "user-library-read"
+    client_id = os.getenv("SPOTIPY_CLIENT_ID")
+    client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
+    redirect_uri = os.getenv("SPOTIPY_REDIRECT_URI")
+    
+    return redirect(f"https://accounts.spotify.com/authorize?client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&state=abc123&scope={scope}&show_dialogue=true")
+
+def callback(request):
+    context = {"tracks": []}
+    scope = "user-library-read"
+    breakpoint()
+    # results = sp.current_user_saved_tracks()
+    # for idx, item in enumerate(results['items']):
+    #     track = item['track']
+    #     context["tracks"].append(f"{idx} {track['artists'][0]['name']} –  {track['name']}<br>")
+    
+    return render(request, "vibecheck/home.html", context)
 
 
 

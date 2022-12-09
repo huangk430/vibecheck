@@ -19,10 +19,11 @@ from vibecheck import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/spotify/login/callback/', views.callback, name="callback"),
     path('accounts/', include('allauth.urls')),
     path('', views.index, name="index"),
     path('show_playlist/<int:vibeid>/', views.show_playlist, name="show_playlist"),
     path('home/', views.home, name="home"),
+    path('login/', views.login, name="login"),
 
-    
 ]
