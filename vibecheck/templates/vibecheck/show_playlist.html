@@ -21,13 +21,14 @@
 
     <button onclick="myFunction('SeedData')" class="w3-margin-top w3-btn w3-green w3-round w3-ripple">View Seed Data</button>
         
-    <div id="SeedData" class="w3-hide w3-container w3-light-grey">
+    <div id="SeedData" class="w3-hide w3-container w3-white">
         <p>{{seedGenres}}</p>
         <p> 
             {% for track in seedTracks %}
                 {{ track|safe }} <br>
             {% endfor %}
         </p>
+        <p>Don't like your playlist? Start over to get new recommendations!</p>
     </div>
 </div>
 

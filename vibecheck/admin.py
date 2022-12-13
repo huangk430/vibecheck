@@ -1,5 +1,5 @@
 from django.contrib import admin
-from vibecheck.models import Genre, Vibe, UserVibe
+from vibecheck.models import *
 
 
 class GenreAdmin(admin.ModelAdmin):
@@ -7,4 +7,3 @@ class GenreAdmin(admin.ModelAdmin):
 
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Vibe)
-admin.site.register(UserVibe)
