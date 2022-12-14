@@ -4,10 +4,9 @@
 An application that generates a recommended playlist based on your "vibes". 
 
 
-Built with  [Spotify API](https://developer.spotify.com/documentation/web-api/),
+Built with [Spotify API](https://developer.spotify.com/documentation/web-api/),
 [Django](https://django.readthedocs.io/en/stable/),
 [W3.CSS](https://www.w3schools.com/w3css/defaulT.asp),
-[Django AllAuth](https://django-allauth.readthedocs.io/en/latest/)
 
  
 
