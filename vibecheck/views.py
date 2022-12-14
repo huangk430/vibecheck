@@ -59,15 +59,21 @@ def show_playlist(request, vibeid):
         params = {"limit": 50}
         response = requests.get("https://api.spotify.com/v1/me/tracks", headers=headers, params=params)
         savedTracks = response.json()['items']
-        for item in savedTracks:
-            track = item['track'] 
-            savedTrackIDs.append(track['id'])
+
+        if len(savedTracks) == 0: #no saved tracks, use all genres
+            seedTracks = []
+            seedGenres = vibeGenres
+
+        else:
+            for item in savedTracks:
+                track = item['track'] 
+                savedTrackIDs.append(track['id'])
 
         # recommendation engine is limited to 5 seeds only (3 tracks, 2 genres)
         # randomly pick 3 tracks from user saved tracks, randomly pick 2 genres from vibe table
 
-        seedTracks = random.sample(savedTrackIDs, k=3)
-        seedGenres = random.sample(vibeGenres, k=2)
+            seedTracks = random.sample(savedTrackIDs, k=3)
+            seedGenres = random.sample(vibeGenres, k=2)
 
         context["seedTracks"] = [f"{item['track']['artists'][0]['name']} – {item['track']['name']}" for item in savedTracks if item["track"]["id"] in seedTracks]
         context["seedGenres"] = seedGenres
