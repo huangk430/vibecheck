@@ -24,4 +24,8 @@ Each vibe is associated with the following genres:
 Based on the user's selected vibe, seed data is selected from a random combination of associated genres and user's liked songs. This seed data is used to create [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations). 
 
 
+## Demo
+
+
+https://user-images.githubusercontent.com/64836972/207677125-12911bea-1a4d-41a3-8fc0-37995bd31ed5.mp4
 
